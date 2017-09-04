@@ -70,8 +70,11 @@
 	$list = $dao->getAssociazioni( $ORDINE, $ordine, $MESE, $ANNO, $UID, ($page * 50) - 50 );
 	$listWithoutLimit = $dao->getAssociazioni( $ORDINE, $ordine, $MESE, $ANNO, $UID, 0, 5000 );
 	$nRecords = count( $listWithoutLimit );
-	$npage = round( $nRecords / 50, 0, PHP_ROUND_HALF_DOWN );
+
+	$npage = round( $nRecords / 50, 0, PHP_ROUND_HALF_UP );
+
 	if ($npage == 0) $npage++;
+	if ($nRecords - (50 * $npage) > 0) $npage++;
 
 ?>
 <html>
